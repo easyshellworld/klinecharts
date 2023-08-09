@@ -1,6 +1,7 @@
 "use client"
 import { createChart, ColorType } from 'lightweight-charts';
 import React, { useEffect, useRef } from 'react';
+import fetchData from './api/fetchDate';
 
 export const ChartComponent = props => {
 	const {
@@ -59,8 +60,15 @@ const initialData = [
     
 ];
 
+//https://api.mytokenapi.com/currency/kline?com_id="+coinname+"_usdt&symbol="+coinname+"&anchor=USDT&time="+last+"&market_id=338&period=1d&timestamp=1674739035146&code=ebc161c4c01e448626c3cc30518009d6&platform=web_pc&v=1.0.0&language=en_US&legal_currency=USD
+const testdata=await fetchData('/api-text')
+
+//const gettestdata=JSON.stringify(testdata)
+
+
 export default function Chart(props) {
+	console.log(testdata)
 	return (
-		<ChartComponent {...props} data={initialData}></ChartComponent>
+		<><h1>BTC</h1><ChartComponent {...props} data={initialData}></ChartComponent></>
 	);
 }
