@@ -60,7 +60,7 @@ export const ChartComponent = props => {
 //const gettestdata=JSON.stringify(testdata)
 
 
-export default function Page({ params },props) {
+export default function Coin({ params },props) {
 	
 	const [newdata, setnewdata] = useState( [
 
