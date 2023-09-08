@@ -120,6 +120,7 @@ export default function Charts(props) {
 
 
 	return (
-		<><h1>{geturldata.coin}</h1><ChartComponent {...props} data={newdata} data2={newdata2}></ChartComponent></>
+		<><div className='grid grid-cols-0 gap-3 place-content-center text-9xl'>{geturldata.coin}</div>
+		<div><ChartComponent {...props} data={newdata} data2={newdata2}></ChartComponent></div></>
 	);
 }
