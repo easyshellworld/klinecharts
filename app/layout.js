@@ -8,8 +8,8 @@ import { useRouter } from 'next/navigation'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'KlineCharts',
-  description: 'KlineCharts app',
+  title: 'Kline Charts',
+  description: 'Kline Charts app',
 }
 
 export default function RootLayout({ children }) {
