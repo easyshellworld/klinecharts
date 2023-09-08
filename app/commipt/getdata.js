@@ -20,7 +20,7 @@ export const Getdatatable=(props)=> {
         </thead>
         <tbody>
           {coin.kdata.map(item => (
-            <tr>
+            <tr key={item.id}>
                <td>{item.time}</td>
            <td>{item.open}</td>
            <td>{item.high}</td>

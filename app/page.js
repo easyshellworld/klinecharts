@@ -42,7 +42,9 @@ export default function Home() {
    <div className='grid grid-cols-0 gap-8 place-content-center'>
     <div>
      {coindatas.map(coindata=>(
+          <div key={coindata.id}>
           <Getdatatable coin={coindata} /> 
+          </div>
      ))} 
       
     </div>
