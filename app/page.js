@@ -1,7 +1,7 @@
 'use client'
 import { Getdatatable } from './commipt/getdata'
 import { getlittledata, gettoday, getATR } from './commipt/api'
-import {   useEffect,useState } from 'react';
+import {   useState } from 'react';
 
 async function getcoindata(coinname) {
   const coinurl = gettoday(coinname)
