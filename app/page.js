@@ -1,68 +1,86 @@
 'use client'
 import { Getdatatable } from './commipt/getdata'
-import { getlittledata, gettoday,getATR } from './commipt/api'
-import { useState } from 'react';
+import { getlittledata, gettoday, getATR } from './commipt/api'
+import {   useState } from 'react';
 
 async function getcoindata(coinname) {
   const coinurl = gettoday(coinname)
-  const res = await fetch(coinurl);
+  const res = await fetch(coinurl, { next: { tags: ['collection'] } });
   const data = await res.json();
-  const getdata = getlittledata(data.data.kline);
-  const atrdata = getATR(getdata);
 
-  const coindata = {
-    name:coinname,
-    atr: atrdata,//getATR(getdata),
-    kdata: getdata
-  }
+
+
 
   return coindata;
 }
 
 export default function Home() {
+ const [coindatas,setCoindats]=useState([]);
+ let coindatas1=[]
 
-  const [coindatas,setcoindatas]=useState(
-    [{
-      name:'dont have data',
-      atr: 'dont have data',//getATR(getdata),
-      kdata: [{"time":1693785600,"open":0.54220000000000002,"high":0.55510000000000004,"low":0.54000000000000004,"close":0.55449999999999999,"volumefrom":43773100},{"time":1693699200,"open":0.54100000000000004,"high":0.54630000000000001,"low":0.53710000000000002,"close":0.54220000000000002,"volumefrom":17980300}]
-    }]
-  )
-   
-    /*  */
+  const [coinnames,setcoinnames]=useState(['btc', 'eth', 'matic665', 'apt530', 'tron', 'solana', 'ape613'])
 
 
-/*   useEffect(() => {
-    // Update the document title using the browser API
-    const coindata=getcoindata('btc')
-  });
- */
     
-  return (
-   <div className='grid grid-cols-0 gap-8 place-content-center'>
-    <div>
-     {coindatas.map(coindata=>(
-          <div key={coindata.name}>
-          <Getdatatable coin={coindata} /> 
-          </div>
-     ))} 
+
+    for (let i = 0; i < coinnames.length; i++) {
+      fetch(gettoday(coinnames[i]))
+        .then(res => res.json())
+        .then(data => {
+          // console.log(data.data.kline)
+          const getdata = getlittledata(data.data.kline);
+          const atrdata = getATR(getdata);
+          const coindatat = {
+            name: coinnames[i],
+            atr: atrdata,//getATR(getdata),
+            kdata: getdata
+          }
+          coindatas1.push(coindatat)
+         if(coindatas1.length>=7){
+          setCoindats(coindatas1)
+           setcoinnames([]);
+         }
       
-    </div>
-    <div>   <button className="btn btn-success"  
-      onClick={async function() {
-              const coinnames=['btc','eth','matic665','apt530','tron','solana','ape613']
-              let arr=[];
-              for(let i=0;i<coinnames.length;i++){
-                const test=await getcoindata(coinnames[i])
-                arr.push(test)
-              }
-          
-              setcoindatas(arr)
-           //   console.log(coindata)
+        })
+        .catch(err => console.log(err))
+  
+    }
+  
 
-           }}
-           >start</button></div>
+
+
+
+
+
+  /*  */
+
+
+  /*   useEffect(() => {
+      // Update the document title using the browser API
+      const coindata=getcoindata('btc')
+    });
+   */
+
+  return (
+    <div className='grid grid-cols-0 gap-8 place-content-center'>
+      <div>
+        {coindatas.map(coindata => (
+          <div key={coindata.name}>
+            <Getdatatable coin={coindata} />
+          </div>
+        ))}
+
+      </div>
+      <div>   <button className="btn btn-success"
+      /*      onClick={async function() {
+                  
+               
+                  // setcoindatas(arr)
+                //   console.log(coindata)
+     
+                }} */
+      >start</button></div>
     </div>
-    
+
   )
 }
