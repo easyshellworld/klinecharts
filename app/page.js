@@ -18,11 +18,11 @@ export default function Home() {
  const [coindatas,setCoindats]=useState([]);
  let coindatas1=[]
 
-  const coinnames = ['btc', 'eth', 'matic665', 'apt530', 'tron', 'solana', 'ape613']
+  const [coinnames,setcoinnames]=useState(['btc', 'eth', 'matic665', 'apt530', 'tron', 'solana', 'ape613'])
 
 
     
-  useEffect(() => {
+
     for (let i = 0; i < coinnames.length; i++) {
       fetch(gettoday(coinnames[i]))
         .then(res => res.json())
@@ -38,13 +38,14 @@ export default function Home() {
           coindatas1.push(coindatat)
          if(coindatas1.length>=7){
           setCoindats(coindatas1)
+           setcoinnames([]);
          }
       
         })
         .catch(err => console.log(err))
   
     }
-  });
+  
 
 
 
