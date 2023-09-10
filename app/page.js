@@ -39,7 +39,7 @@ export default function Home() {
 
   //  })
 
-    if (coinnames.length===7) return <div className='grid grid-cols-0 gap-3 place-content-center text-9xl'>Loading...</div>
+    if (coinnames.length===7) return <div className='grid grid-cols-0 gap-3 place-content-center text-6xl'>Loading...</div>
        
     return (
       <div className='grid grid-cols-0 gap-8 place-content-center'>
