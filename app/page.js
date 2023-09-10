@@ -1,5 +1,5 @@
 'use client'
-import { Getdatatable } from './commipt/getdata'
+import { Getdatatable } from './commipt/getdatatable'
 import { getlittledata, gettoday, getATR } from './commipt/api'
 import {   useState } from 'react';
 
