@@ -7,46 +7,55 @@ import {   useState,useEffect } from 'react';
 
 export default function Home() {
  const [coindatas,setCoindats]=useState([]);
- let coindatas1=[]
+ let coindatas1={}
 
-  const [coinnames,setcoinnames]=useState(['btc', 'eth', 'matic665', 'apt530', 'tron', 'solana', 'ape613'])
+  const [loading,setloading]=useState(true)
+  
 
-//  useEffect(()=>{
-      for (let i = 0; i < coinnames.length; i++) {
+  const coinnames=['btc', 'eth', 'matic665', 'apt530', 'tron', 'solana', 'ape613']
+  
+  useEffect(()=>{
+    if(loading===true){
+      const num=coinnames.length
+      let count=0;
+      for (let i = 0; i < num; i++) {
+        coindatas1[coinnames[i]]={}
+       
         fetch(gettoday(coinnames[i]))
           .then(res => res.json())
           .then(data => {
             // console.log(data.data.kline)
             const getdata = getlittledata(data.data.kline);
             const atrdata = getATR(getdata);
-            const coindatat = {
+            coindatas1[coinnames[i]]= {
               name: coinnames[i],
               atr: atrdata,//getATR(getdata),
               kdata: getdata
             }
-            coindatas1.push(coindatat)
-           if(coindatas1.length>=7){
+            count++;
+           if(count>=num){
+             console.log(coindatas1)
             setCoindats(coindatas1)
-             setcoinnames([]);
+            setloading([]);
            }
         
           })
           .catch(err => console.log(err))
     
       }
+    }
 
     
+ })
 
-  //  })
-
-    if (coinnames.length===7) return <div className='grid grid-cols-0 gap-3 place-content-center text-6xl'>Loading...</div>
+    if (loading===true) return <div className='grid grid-cols-0 gap-3 place-content-center text-6xl'>Loading...</div>
        
     return (
       <div className='grid grid-cols-0 gap-8 place-content-center'>
         <div>
-          {coindatas.map(coindata => (
-            <div key={coindata.name}>
-              <Getdatatable coin={coindata} />
+          {Object.keys(coindatas).map(key => (
+            <div key={key}>
+              <Getdatatable coin={coindatas[key]} />
             </div>
           ))}
   
