@@ -12,7 +12,7 @@ export default function Home() {
   const [loading,setloading]=useState(true)
   
 
-  const coinnames=['btc', 'eth', 'matic665', 'apt530', 'tron', 'solana', 'ape613']
+  const coinnames=['btc', 'eth', 'matic665', 'apt530', 'tron', 'solana', 'arb248','ape613']
   
   useEffect(()=>{
     if(loading===true){
@@ -28,15 +28,15 @@ export default function Home() {
             const getdata = getlittledata(data.data.kline);
             const atrdata = getATR(getdata);
             coindatas1[coinnames[i]]= {
-              name: coinnames[i],
+              name: coinnames[i].match(/.*[a-zA-Z]/),
               atr: atrdata,//getATR(getdata),
               kdata: getdata
             }
             count++;
            if(count>=num){
-             console.log(coindatas1)
+            // console.log(coindatas1)
             setCoindats(coindatas1)
-            setloading([]);
+            setloading(false);
            }
         
           })
@@ -48,7 +48,7 @@ export default function Home() {
     
  })
 
-    if (loading===true) return <div className='grid grid-cols-0 gap-3 place-content-center text-6xl'>Loading...</div>
+    if (loading===true) return <div className='grid grid-cols-0 gap-8 place-content-center text-6xl'>Loading...</div>
        
     return (
       <div className='grid grid-cols-0 gap-8 place-content-center'>
