@@ -25,7 +25,7 @@ export const ChartComponent = props => {
 		() => {
 			if(chartContainerRef.current.clientWidth>minWidth) {minWidth=chartContainerRef.current.clientWidth}
 			const handleResize = () => {
-				chart.applyOptions({ width: minWidth });
+				chart.applyOptions({ width: minWidt });
 			};
 
 			const chart = createChart(chartContainerRef.current, {
