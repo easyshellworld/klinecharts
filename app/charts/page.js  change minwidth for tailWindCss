@@ -1,0 +1,217 @@
+"use client"
+import { createChart, ColorType } from 'lightweight-charts';
+import React, { useEffect, useRef,useState} from 'react';
+import { useSearchParams } from 'next/navigation'
+
+
+
+export const ChartComponent = props => {
+	const {
+		data,
+		data2,
+		colors: {
+			backgroundColor = 'white',
+			lineColor = '#2962FF',
+			textColor = 'black',
+			areaTopColor = '#2962FF',
+			areaBottomColor = 'rgba(41, 98, 255, 0.28)',
+		} = {},
+	} = props;
+
+	const chartContainerRef = useRef();
+	//let minWidth=3600
+
+	useEffect(
+		() => {
+		//	if(chartContainerRef.current.clientWidth>minWidth) {minWidth=chartContainerRef.current.clientWidth}
+			const handleResize = () => {
+				chart.applyOptions({ width: chartContainerRef.current.clientWidth });
+			};
+
+			const chart = createChart(chartContainerRef.current, {
+				layout: {
+					background: { type: ColorType.Solid, color: backgroundColor },
+					textColor,
+				},
+				width: chartContainerRef.current.clientWidth，
+				height: 300,
+			});
+
+			const chart2 = createChart(chartContainerRef.current, {
+				layout: {
+					background: { type: ColorType.Solid, color: backgroundColor },
+					textColor,
+				},
+				width: chartContainerRef.current.clientWidth，
+				height: 300,
+			});
+			chart.timeScale().fitContent();
+			chart2.timeScale().fitContent();
+			const areaSeries = chart2.addHistogramSeries({
+				lineColor: '#2962FF', topColor: '#2962FF',
+				bottomColor: 'rgba(41, 98, 255, 0.28)',
+			});
+			areaSeries.setData(data2);
+
+			const newSeries = chart.addCandlestickSeries({ lineColor, topColor: areaTopColor, bottomColor: areaBottomColor });
+			
+			newSeries.setData(data);
+
+			window.addEventListener('resize', handleResize);
+
+			return () => {
+				window.removeEventListener('resize', handleResize);
+
+				chart.remove();
+				chart2.remove();
+			};
+		},
+	    [data,data2, backgroundColor, lineColor, textColor, areaTopColor, areaBottomColor]
+	);
+
+	return (
+		<div
+			ref={chartContainerRef}
+		/>
+	);
+};
+
+
+export function getklinevelue(kline){
+	return  kline.map(a => {
+		if(a.open>a.close){
+		 return	{time:a.time,value:a.volumefrom, color: 'red'}
+		}
+		else{
+			return	{time:a.time,value:a.volumefrom}
+		}
+	});
+}
+
+
+export default function Charts(props) {
+	//const search = useSearchParams().get('coin')
+    const geturldata={
+        coin: useSearchParams().get('coin'),
+        day:useSearchParams().get('day')
+    }
+	const [newdata, setnewdata] = useState( [
+		]) 
+  const [newdata2, setnewdata2] = useState( [
+		]) 
+		let today=new Date().getTime()
+		
+		let last=Math.floor(today/1000)
+	fetch('/currency/kline?com_id='+geturldata.coin+'_usdt&symbol='+geturldata.coin+'&anchor=USDT&time='+last+'&market_id=338&period='+geturldata.day+'&timestamp=1674739035146&code=ebc161c4c01e448626c3cc30518009d6&platform=web_pc&v=1.0.0&language=en_US&legal_currency=USD')
+	.then( res=>res.json() ) 
+	.then( data=>{
+          // console.log(data.data.kline)
+		 const data_json=data.data.kline.reverse()
+		  let klinedata={
+			kline:data_json,
+			value:getklinevelue(data_json)
+		}
+
+		//console.log(JSON.stringify(klinedata))
+	    setnewdata(klinedata.kline)
+		setnewdata2(klinedata.value)
+		// console.log(newdata)
+           // 逻辑处理
+        } )
+	.catch( err=>console.log(err) )
+
+
+	return (
+		<><div className='grid grid-cols-0 gap-3 place-content-center text-9xl'>{geturldata.coin}</div>
+		<div className=
+解决过宽图片问题
+
+Default (GPT-3.5)
+
+User
+如果一个图片过宽 由左往右怎么设置 tailwindCSS中
+
+ChatGPT
+在Tailwind CSS中，你可以使用类来控制图片的宽度和溢出行为，以解决图片过宽的问题。要使图片在过宽时水平滚动（从左向右滚动），你可以使用以下类：
+
+首先，确保你的图片包装在一个具有固定宽度的容器中，以限制图片的宽度。例如：
+html
+Copy code
+<div class="w-screen overflow-x-auto">
+  <img src="your-image.jpg" class="w-auto" alt="Your Image">
+</div>
+上面的代码中，w-screen 类将容器的宽度设置为屏幕的宽度，overflow-x-auto 类将启用水平滚动，w-auto 类将确保图片根据其原始尺寸进行调整。
+
+如果需要更多的自定义，你可以使用Tailwind CSS的max-w-* 类来限制容器的最大宽度，以便适应你的设计需求。例如：
+html
+Copy code
+<div class="max-w-4xl mx-auto overflow-x-auto">
+  <img src="your-image.jpg" class="w-auto" alt="Your Image">
+</div>
+在上面的示例中，max-w-4xl 类将容器的最大宽度设置为4xl尺寸，你可以根据需要调整这个值。
+
+这样设置后，如果图片过宽，用户就可以水平滚动以查看整个图片，而不会破坏页面的布局。
+
+
+
+
+User
+lightweight-charts中如何设置画布最小宽度
+
+ChatGPT
+在使用 TradingView's Lightweight Charts (lightweight-charts) 库时，你可以设置画布（chart container）的最小宽度以确保图表不会在小屏幕上变得太窄。你可以通过CSS来设置画布的最小宽度，这并不是Lightweight Charts库的特定功能，而是通过自定义CSS来控制画布容器的外观。
+
+以下是一个示例，如何使用CSS来设置画布容器的最小宽度：
+
+html
+Copy code
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lightweight Charts</title>
+  <!-- 引入 Lightweight Charts 的 CSS 文件 -->
+  <link href="https://unpkg.com/lightweight-charts@latest/dist/lightweight-charts.standalone.production.css" rel="stylesheet">
+  <style>
+    /* 自定义 CSS 样式，设置画布容器的最小宽度 */
+    #chart-container {
+      min-width: 300px; /* 设置最小宽度为 300 像素，你可以根据需要调整这个值 */
+      width: 100%; /* 让画布容器占满其父元素的宽度 */
+      height: 300px; /* 设置画布容器的高度 */
+    }
+  </style>
+</head>
+<body>
+  <!-- 创建一个包含图表的容器 -->
+  <div id="chart-container"></div>
+
+  <!-- 引入 Lightweight Charts 的 JavaScript 文件 -->
+  <script src="https://unpkg.com/lightweight-charts@latest/dist/lightweight-charts.standalone.production.js"></script>
+
+  <script>
+    // 创建 Lightweight Charts 图表
+    const chart = LightweightCharts.createChart(document.getElementById('chart-container'));
+    // 进一步设置和配置你的图表
+    // ...
+  </script>
+</body>
+</html>
+在上面的示例中，通过自定义CSS样式，我们给#chart-container元素设置了min-width属性，以确保在小屏幕上画布容器不会变得太窄。你可以根据需要调整min-width的值。同时，设置了width和height属性来控制画布容器的宽度和高度。
+
+
+
+
+User
+tailwindCSS如何设置容器最小宽度，并且由左向右显示
+
+ChatGPT
+要使用Tailwind CSS设置容器的最小宽度并使其由左向右显示，你可以使用以下类：
+
+首先，添加一个容器元素，例如div，并使用Tailwind CSS的类来设置最小宽度和其他样式。
+html
+Copy code
+<div class"min-w-[3600px] min-h-screen flex items-center justify-center">
+<ChartComponent {...props} data={newdata} data2={newdata2}></ChartComponent></div></>
+	);
+}
