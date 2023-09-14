@@ -19,11 +19,9 @@ export const ChartComponent = props => {
 	} = props;
 
 	const chartContainerRef = useRef();
-	//let minWidth=3600
 
 	useEffect(
 		() => {
-		//	if(chartContainerRef.current.clientWidth>minWidth) {minWidth=chartContainerRef.current.clientWidth}
 			const handleResize = () => {
 				chart.applyOptions({ width: chartContainerRef.current.clientWidth });
 			};
@@ -33,7 +31,7 @@ export const ChartComponent = props => {
 					background: { type: ColorType.Solid, color: backgroundColor },
 					textColor,
 				},
-				width: chartContainerRef.current.clientWidth，
+				width: chartContainerRef.current.clientWidth,
 				height: 300,
 			});
 
@@ -42,7 +40,7 @@ export const ChartComponent = props => {
 					background: { type: ColorType.Solid, color: backgroundColor },
 					textColor,
 				},
-				width: chartContainerRef.current.clientWidth，
+				width: chartContainerRef.current.clientWidth,
 				height: 300,
 			});
 			chart.timeScale().fitContent();
@@ -123,7 +121,6 @@ export default function Charts(props) {
 
 	return (
 		<><div className='grid grid-cols-0 gap-3 place-content-center text-9xl'>{geturldata.coin}</div>
-<div className="min-w-[3600px] min-h-screen flex items-center justify-center">
-<ChartComponent {...props} data={newdata} data2={newdata2}></ChartComponent></div></>
+		<div className='min-w-[3600px] min-h-screen flex items-center justify-center'><ChartComponent {...props} data={newdata} data2={newdata2}></ChartComponent></div></>
 	);
 }
