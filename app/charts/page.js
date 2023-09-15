@@ -41,7 +41,7 @@ export const ChartComponent = props => {
 					textColor,
 				},
 				width: chartContainerRef.current.clientWidth,
-				height: 300,
+				height: 150,
 			});
 			chart.timeScale().fitContent();
 			chart2.timeScale().fitContent();
@@ -121,6 +121,10 @@ export default function Charts(props) {
 
 	return (
 		<><div className='grid grid-cols-0 gap-3 place-content-center text-9xl'>{geturldata.coin}</div>
-		<div className='min-w-[3600px] min-h-screen flex items-center justify-center'><ChartComponent {...props} data={newdata} data2={newdata2}></ChartComponent></div></>
+		<div className='min-w-[1800px] flew flex-row-reverse overflow-x-auto place-content-right'>
+			<div className='flew-shrink-0'>
+			<ChartComponent {...props} data={newdata} data2={newdata2}></ChartComponent>
+			</div>
+			</div></>
 	);
 }
