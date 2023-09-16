@@ -121,8 +121,8 @@ export default function Charts(props) {
 
 	return (
 		<><div className='grid grid-cols-0 gap-3 place-content-center text-9xl'>{geturldata.coin}</div>
-		<div className='min-w-[1800px] flew flex-row-reverse overflow-x-auto place-content-right'>
-			<div className='flew-shrink-0'>
+		<div className='min-w-[1800px]  overflow-x-scroll'>
+			<div className='flew-shrink-0' id='newchart'>
 			<ChartComponent {...props} data={newdata} data2={newdata2}></ChartComponent>
 			</div>
 			</div></>
