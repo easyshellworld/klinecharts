@@ -19,49 +19,60 @@ export const ChartComponent = props => {
 	} = props;
 
 	const chartContainerRef = useRef();
+	const timeScaleRef = useRef(null);
 
 	useEffect(
 		() => {
 			const handleResize = () => {
-				chart.applyOptions({ width: chartContainerRef.current.clientWidth });
+				klinechart.applyOptions({ width: chartContainerRef.current.clientWidth });
 			};
 
-			const chart = createChart(chartContainerRef.current, {
+			const klinechart = createChart(chartContainerRef.current, {
 				layout: {
 					background: { type: ColorType.Solid, color: backgroundColor },
 					textColor,
 				},
 				width: chartContainerRef.current.clientWidth,
 				height: 300,
+				timeScale: timeScaleRef.current, 
 			});
 
-			const chart2 = createChart(chartContainerRef.current, {
+			const volumchart = createChart(chartContainerRef.current, {
 				layout: {
 					background: { type: ColorType.Solid, color: backgroundColor },
 					textColor,
 				},
 				width: chartContainerRef.current.clientWidth,
 				height: 150,
+				timeScale: timeScaleRef.current, 
 			});
-			chart.timeScale().fitContent();
-			chart2.timeScale().fitContent();
-			const areaSeries = chart2.addHistogramSeries({
+			timeScaleRef.current = klinechart.timeScale();
+			klinechart.timeScale().fitContent();
+			volumchart.timeScale().fitContent();
+			const areaSeries = volumchart.addHistogramSeries({
 				lineColor: '#2962FF', topColor: '#2962FF',
 				bottomColor: 'rgba(41, 98, 255, 0.28)',
 			});
 			areaSeries.setData(data2);
 
-			const newSeries = chart.addCandlestickSeries({ lineColor, topColor: areaTopColor, bottomColor: areaBottomColor });
+			const newSeries = klinechart.addCandlestickSeries({ lineColor, topColor: areaTopColor, bottomColor: areaBottomColor });
 
 			newSeries.setData(data);
+
+			/* // 添加滚动事件监听器，将一个图表的滚动应用到另一个图表
+			klinechart.subscribeCrosshairMove(param => {
+				if (param.point) {
+				  volumchart.moveCrosshair(param.point.time);
+				}
+			  }); */
 
 			window.addEventListener('resize', handleResize);
 
 			return () => {
 				window.removeEventListener('resize', handleResize);
 
-				chart.remove();
-				chart2.remove();
+				klinechart.remove();
+				volumchart.remove();
 			};
 		},
 		[data, data2, backgroundColor, lineColor, textColor, areaTopColor, areaBottomColor]
