@@ -34,7 +34,7 @@ export const ChartComponent = props => {
 				},
 				width: chartContainerRef.current.clientWidth,
 				height: 300,
-				timeScale: timeScaleRef.current, 
+			//	timeScale: timeScaleRef.current, 
 			});
 
 			const volumchart = createChart(chartContainerRef.current, {
@@ -44,11 +44,13 @@ export const ChartComponent = props => {
 				},
 				width: chartContainerRef.current.clientWidth,
 				height: 150,
-				timeScale: timeScaleRef.current, 
+			//	timeScale: timeScaleRef.current, 
+				//visible:false,
 			});
-			timeScaleRef.current = klinechart.timeScale();
-			klinechart.timeScale().fitContent();
-			volumchart.timeScale().fitContent();
+			
+			//klinechart.timeVisible(false)
+		//	klinechart.timeScale().fitContent();
+		//	volumchart.timeScale().fitContent();
 			const areaSeries = volumchart.addHistogramSeries({
 				lineColor: '#2962FF', topColor: '#2962FF',
 				bottomColor: 'rgba(41, 98, 255, 0.28)',
@@ -58,19 +60,18 @@ export const ChartComponent = props => {
 			const newSeries = klinechart.addCandlestickSeries({ lineColor, topColor: areaTopColor, bottomColor: areaBottomColor });
 
 			newSeries.setData(data);
+			//volumchart.timeScale().scrollToPosition =klinechart.timeScale().scrollPosition
+			//timeScaleRef.current.scrollToPosition = klinechart.timeScale().scrollToPosition;
 
-			/* // 添加滚动事件监听器，将一个图表的滚动应用到另一个图表
-			klinechart.subscribeCrosshairMove(param => {
-				if (param.point) {
-				  volumchart.moveCrosshair(param.point.time);
-				}
-			  }); */
-
-			window.addEventListener('resize', handleResize);
+		 // 添加滚动事件监听器，将一个图表的滚动应用到另一个图表
+		
+			
+			  window.addEventListener('resize', handleResize);
 
 			return () => {
+				
 				window.removeEventListener('resize', handleResize);
-
+			//	timeScaleRef.current = klinechart.timeScale().scrollToPosition;
 				klinechart.remove();
 				volumchart.remove();
 			};
@@ -135,8 +136,8 @@ export default function Charts(props) {
 
 	return (
 		<><div className='grid grid-cols-0 gap-3 place-content-center text-9xl'>{geturldata.coin}</div>
-			<div className='min-w-[1800px]  overflow-x-hidden '>
-				<div className='flew-shrink-0' id='newchart'>
+			<div className=''>
+				<div className=''>
 					<ChartComponent {...props} data={newdata} data2={newdata2}></ChartComponent>
 				</div>
 			</div></>
