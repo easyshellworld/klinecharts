@@ -110,6 +110,12 @@ export default function Charts(props) {
 	const [newdata2, setnewdata2] = useState([
 	])
 	const [stoploding, setstoploding] = useState(false)
+	useEffect(()=>{
+ 		//if(stoploding== true){
+			const interval=setInterval(()=>{setstoploding(false)},30000)
+		  return ()=>clearInterval(interval);
+		//}
+	},[])
 	if (stoploding == false) {
 		let today = new Date().getTime()
 
