@@ -10,23 +10,23 @@ export const Getdatatable=(props)=> {
        
         <thead className="border-solid border-2 border-green-600 ...">
           <tr>
-            <th className="border-solid border-2 border-green-600 ...">time</th>
-            <th className="border-solid border-2 border-green-600 ...">open</th>
-            <th className="border-solid border-2 border-green-600 ...">high</th>
-            <th className="border-solid border-2 border-green-600 ...">low</th>
-            <th className="border-solid border-2 border-green-600 ...">close</th>
-            <th className="border-solid border-2 border-green-600 ...">volume</th>
+            <th className="border-solid border-2 border-green-600 bg-blue-400 ...">time</th>
+            <th className="border-solid border-2 border-green-600 bg-green-300 ...">open</th>
+            <th className="border-solid border-2 border-green-600 bg-green-500 ...">high</th>
+            <th className="border-solid border-2 border-green-600 bg-red-500 ...">low</th>
+            <th className="border-solid border-2 border-green-600 bg-red-300 ...">close</th>
+            <th className="border-solid border-2 border-green-600 bg-blue-400 ...">volume</th>
           </tr>
         </thead>
         <tbody>
-          {coin.kdata.map(item => (
-            <tr key={item.time}>
-           <td className={`border-solid border-2 border-green-600 bg-${item.colors}`}>{item.time}</td>
-           <td className={`border-solid border-2 border-green-600 bg-${item.colors}`}>{item.open}</td>
-           <td className={`border-solid border-2 border-green-600 bg-${item.colors}`}>{item.high}</td>
-           <td className={`border-solid border-2 border-green-600 bg-${item.colors}`}>{item.low}</td>
-           <td className={`border-solid border-2 border-green-600 bg-${item.colors}`}>{item['close']}</td>
-           <td className={`border-solid border-2 border-green-600 bg-${item.colors}`}>{item['volumefrom']}</td>
+          {coin.kdata.map((item,index) => (
+            <tr key={index}>
+           <td className={`border-solid border-2 border-green-600 bg-${item.colors} ...`}>{item.time}</td>
+           <td className={`border-solid border-2 border-green-600 bg-${item.colors} ...`}>{item.open}</td>
+           <td className={`border-solid border-2 border-green-600 bg-${item.colors} ...`}>{item.high}</td>
+           <td className={`border-solid border-2 border-green-600 bg-${item.colors} ...`}>{item.low}</td>
+           <td className={`border-solid border-2 border-green-600 bg-${item.colors} ...`}>{item['close']}</td>
+           <td className={`border-solid border-2 border-green-600 bg-${item.colors} ...`}>{item['volumefrom']}</td>
             </tr>
           ))}
         </tbody>

@@ -1,3 +1,4 @@
+"use client"
 import axios from "axios"
 
 export const getwebData=axios.create({
@@ -38,7 +39,7 @@ export const getlittledata=(klinedata)=>{
         }
       
         if(newdatajosn['open'] > newdatajosn['close']){
-          newdatajosn.colors='blue-300'
+          newdatajosn.colors='red-300'
         }
         arr.push(newdatajosn)
     }
