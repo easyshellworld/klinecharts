@@ -27,8 +27,21 @@ export const gettoday=(coinname)=>{
 export const getlittledata=(klinedata)=>{
     let arr=[]
     for(let i=0;i<9;i++){
-        klinedata[i].time=timestampToTime(klinedata[i].time)
-        arr.push(klinedata[i])
+        let newdatajosn={
+          time:timestampToTime(klinedata[i].time),
+          open:klinedata[i].open,
+          high:klinedata[i].high,
+          low:klinedata[i].low,
+          close:klinedata[i]['close'],
+          volumefrom:klinedata[i]['volumefrom'],
+          colors:'green-300'
+          
+        }
+      
+        if(newdatajosn.open<newdatajosn.close){
+          newdatajosn.colors='red-300'
+        }
+        arr.push(newdatajosn)
     }
     return arr
 }

@@ -21,12 +21,11 @@ export const Getdatatable=(props)=> {
         <tbody>
           {coin.kdata.map(item => (
             <tr key={item.id}>
-           <td className="border-solid border-2 border-green-600 ...">{item.time}</td>
-           <td className="border-solid border-2 border-green-600 ...">{item.open}</td>
-           <td className="border-solid border-2 border-green-600 ...">{item.high}</td>
-           <td className="border-solid border-2 border-green-600 ...">{item.low}</td>
-           <td className="border-solid border-2 border-green-600 ...">{item['close']}</td>
-           <td className="border-solid border-2 border-green-600 ...">{item['volumefrom']}</td>
+           <td className={`border-solid border-2 border-green-600 bg-${item.colors}...`}>{item.open}</td>
+           <td className={`border-solid border-2 border-green-600 bg-${item.colors}...`}>{item.high}</td>
+           <td className={`border-solid border-2 border-green-600 bg-${item.colors}...`}>{item.low}</td>
+           <td className={`border-solid border-2 border-green-600 bg-${item.colors}...`}>{item['close']}</td>
+           <td className={`border-solid border-2 border-green-600 bg-${item.colors}...`}>{item['volumefrom']}</td>
             </tr>
           ))}
         </tbody>
