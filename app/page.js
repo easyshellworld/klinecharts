@@ -1,6 +1,6 @@
 'use client'
 import { Getdatatable } from './commipt/getdatatable'
-import { getlittledata, gettoday, getATR } from './commipt/api'
+import { getlittledata, gettoday, getATR,getwebData } from './commipt/api'
 import {   useState,useEffect } from 'react';
 
 
@@ -21,8 +21,7 @@ export default function Home() {
       for (let i = 0; i < num; i++) {
         coindatas1[coinnames[i]]={}
        
-        fetch(gettoday(coinnames[i]))
-          .then(res => res.json())
+        getwebData({url:gettoday(coinnames[i])})
           .then(data => {
             // console.log(data.data.kline)
             const getdata = getlittledata(data.data.kline);
@@ -39,8 +38,10 @@ export default function Home() {
             setloading(false);
            }
         
+          }
+          ,err => {
+            return console.log(err);
           })
-          .catch(err => console.log(err))
     
       }
     }

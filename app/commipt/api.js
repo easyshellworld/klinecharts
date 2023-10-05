@@ -1,4 +1,15 @@
-exports.gettoday=(coinname)=>{
+import axios from "axios"
+
+export const getwebData=axios.create({
+    method: 'get',
+   // url: gettoday(coinnames[i]),
+    headers: {
+      'Content-Type': 'application/json',
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0",
+    }
+ })
+
+export const gettoday=(coinname)=>{
 
     let today=new Date().getTime()
     //today=Math.floor(today/1000)
@@ -13,7 +24,7 @@ exports.gettoday=(coinname)=>{
     return test
 }
 
-exports.getlittledata=(klinedata)=>{
+export const getlittledata=(klinedata)=>{
     let arr=[]
     for(let i=0;i<9;i++){
         klinedata[i].time=timestampToTime(klinedata[i].time)
@@ -22,7 +33,7 @@ exports.getlittledata=(klinedata)=>{
     return arr
 }
 
-exports.getATR=(klinedata)=>{
+export const getATR=(klinedata)=>{
     let str=''
     let sumatr=0
     for(let i=0;i<klinedata.length-1;i++){

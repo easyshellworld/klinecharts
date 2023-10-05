@@ -1,6 +1,7 @@
 "use client"
 import { createChart, ColorType } from 'lightweight-charts';
 import React, { useEffect, useRef, useState } from 'react';
+import { getwebData } from '../commipt/api'
 import { useSearchParams } from 'next/navigation'
 
 
@@ -120,8 +121,7 @@ export default function Charts(props) {
 		let today = new Date().getTime()
 
 		let last = Math.floor(today / 1000)
-		fetch('/currency/kline?com_id=' + geturldata.coin + '_usdt&symbol=' + geturldata.coin + '&anchor=USDT&time=' + last + '&market_id=338&period=' + geturldata.day + '&timestamp=1674739035146&code=ebc161c4c01e448626c3cc30518009d6&platform=web_pc&v=1.0.0&language=en_US&legal_currency=USD')
-			.then(res => res.json())
+		getwebData({url:'/currency/kline?com_id=' + geturldata.coin + '_usdt&symbol=' + geturldata.coin + '&anchor=USDT&time=' + last + '&market_id=338&period=' + geturldata.day + '&timestamp=1674739035146&code=ebc161c4c01e448626c3cc30518009d6&platform=web_pc&v=1.0.0&language=en_US&legal_currency=USD'})
 			.then(data => {
 				// console.log(data.data.kline)
 				const data_json = data.data.kline.reverse()
@@ -136,8 +136,10 @@ export default function Charts(props) {
 				setstoploding(true)
 				// console.log(newdata)
 				// 逻辑处理
+			}
+			,err => {
+				return console.log(err);
 			})
-			.catch(err => console.log(err))
 	}
 
 	return (
