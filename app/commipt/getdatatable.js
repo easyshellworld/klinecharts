@@ -20,13 +20,13 @@ export const Getdatatable=(props)=> {
         </thead>
         <tbody>
           {coin.kdata.map(item => (
-            <tr key={item.id}>
-           <td className={`border-solid border-2 border-green-600 bg-${item.colors} ...`}>{item.time}</td>
-           <td className={`border-solid border-2 border-green-600 bg-${item.colors} ...`}>{item.open}</td>
-           <td className={`border-solid border-2 border-green-600 bg-${item.colors} ...`}>{item.high}</td>
-           <td className={`border-solid border-2 border-green-600 bg-${item.colors} ...`}>{item.low}</td>
-           <td className={`border-solid border-2 border-green-600 bg-${item.colors} ...`}>{item['close']}</td>
-           <td className={`border-solid border-2 border-green-600 bg-${item.colors} ...`}>{item['volumefrom']}</td>
+            <tr key={item.time}>
+           <td className={`border-solid border-2 border-green-600 bg-${item.colors}`}>{item.time}</td>
+           <td className={`border-solid border-2 border-green-600 bg-${item.colors}`}>{item.open}</td>
+           <td className={`border-solid border-2 border-green-600 bg-${item.colors}`}>{item.high}</td>
+           <td className={`border-solid border-2 border-green-600 bg-${item.colors}`}>{item.low}</td>
+           <td className={`border-solid border-2 border-green-600 bg-${item.colors}`}>{item['close']}</td>
+           <td className={`border-solid border-2 border-green-600 bg-${item.colors}`}>{item['volumefrom']}</td>
             </tr>
           ))}
         </tbody>

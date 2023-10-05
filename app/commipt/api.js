@@ -34,15 +34,15 @@ export const getlittledata=(klinedata)=>{
           low:klinedata[i].low,
           close:klinedata[i]['close'],
           volumefrom:klinedata[i]['volumefrom'],
-          colors:'green-300'
-          
+          colors:'green-300'         
         }
       
-        if(newdatajosn.open>newdatajosn['close']){
-          newdatajosn.colors='red-300'
+        if(newdatajosn['open'] > newdatajosn['close']){
+          newdatajosn.colors='blue-300'
         }
         arr.push(newdatajosn)
     }
+    
     return arr
 }
 
