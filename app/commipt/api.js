@@ -38,7 +38,7 @@ export const getlittledata=(klinedata)=>{
           
         }
       
-        if(newdatajosn.open<newdatajosn.close){
+        if(newdatajosn.open>newdatajosn['close']){
           newdatajosn.colors='red-300'
         }
         arr.push(newdatajosn)

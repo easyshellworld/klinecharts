@@ -23,8 +23,8 @@ export default function Home() {
        
         getwebData({url:gettoday(coinnames[i])})
           .then(data => {
-            // console.log(data.data.kline)
-            const getdata = getlittledata(data.data.kline);
+            //console.log(data.data)
+            const getdata = getlittledata(data.data.data.kline);
             const atrdata = getATR(getdata);
             coindatas1[coinnames[i]]= {
               name: coinnames[i].match(/.*[a-zA-Z]/),
