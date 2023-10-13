@@ -49,7 +49,7 @@ export default function Home() {
     
  })
 
-    if (loading===true) return <div className='grid grid-cols-0 gap-8 place-content-center text-6xl'>Loading...</div>
+    if (loading===true) return <div className='grid grid-cols-0 gap-8 place-content-center text-6xl h-full min-h-screen'>Loading...</div>
        
     return (
       <div className='grid grid-cols-0 gap-8 place-content-center'>
