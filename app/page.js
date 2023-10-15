@@ -12,7 +12,7 @@ export default function Home() {
   const [loading,setloading]=useState(true)
   
 
-  const coinnames=['btc', 'eth', 'matic665', 'apt530', 'tron', 'solana', 'arb248','ape613']
+  const coinnames=['btc', 'eth', 'matic665', 'apt530', 'tron', 'solana', 'UNI226','arb248','ape613']
   
   useEffect(()=>{
     if(loading===true){
