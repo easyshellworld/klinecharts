@@ -3,6 +3,7 @@ import { createChart, ColorType } from 'lightweight-charts';
 import React, { useEffect, useRef, useState } from 'react';
 import { getwebData } from '../commipt/api'
 import { useSearchParams } from 'next/navigation'
+import { Changeurl } from './commipt/changeurl'
 
 
 
@@ -61,8 +62,7 @@ export const ChartComponent = props => {
 			const newSeries = klinechart.addCandlestickSeries({ lineColor, topColor: areaTopColor, bottomColor: areaBottomColor });
 
 			newSeries.setData(data);
-			//volumchart.timeScale().scrollToPosition =klinechart.timeScale().scrollPosition
-			//timeScaleRef.current.scrollToPosition = klinechart.timeScale().scrollToPosition;
+
 
 		 // 添加滚动事件监听器，将一个图表的滚动应用到另一个图表
 		
@@ -113,10 +113,15 @@ export default function Charts(props) {
 	const [stoploding, setstoploding] = useState(false)
 	useEffect(()=>{
  		//if(stoploding== true){
-			const interval=setInterval(()=>{setstoploding(false)},30000)
+		  const interval=setInterval(()=>{setstoploding(false)},30000)
 		  return ()=>clearInterval(interval);
 		//}
 	},[])
+
+	useEffect(()=>{
+		setstoploding(false)
+	},[geturldata.coin,geturldata.day])
+
 	if (stoploding == false) {
 		let today = new Date().getTime()
 
@@ -147,6 +152,7 @@ export default function Charts(props) {
 				<div className=''>
 					<ChartComponent {...props} data={newdata} data2={newdata2}></ChartComponent>
 				</div>
+				<Changeurl />
 			</div></>
 	);
 }
