@@ -49,7 +49,7 @@ useEffect(()=>{
   })()
 }
   
-},[loading,coindatas])
+},[loading])
       
   
 
