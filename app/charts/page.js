@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { getwebData } from '../commipt/api'
 import { useSearchParams } from 'next/navigation'
 import { Changeurl } from './commipt/changeurl'
+import { threeboll } from './commipt/getbolldata';
 
 
 
@@ -11,6 +12,9 @@ export const ChartComponent = props => {
 	const {
 		data,
 		data2,
+		bollupdata,
+		bollmbdata,
+		bolldndata,
 		colors: {
 			backgroundColor = 'black',
 			lineColor = '#2962FF',
@@ -61,7 +65,56 @@ export const ChartComponent = props => {
 
 			const newSeries = klinechart.addCandlestickSeries({ lineColor, topColor: areaTopColor, bottomColor: areaBottomColor });
 
+			const bollupSeries =klinechart.addLineSeries({
+				priceScaleId: 'left', // 说明
+				color: 'red',
+				title: 'UP',
+				priceFormat: {
+				  type: 'percent',
+				},
+				scaleMargins: {
+				  top: 0.8,
+				  bottom: 0,
+				},
+			  
+			  });
+
+			  const bollmbSeries =klinechart.addLineSeries({
+				priceScaleId: 'left', // 说明
+				color: '#F5A623',
+				title: 'MB',
+				priceFormat: {
+				  type: 'percent',
+				},
+				scaleMargins: {
+				  top: 0.8,
+				  bottom: 0,
+				},
+			  
+			  });
+
+			  const bolldnSeries =klinechart.addLineSeries({
+				priceScaleId: 'left', // 说明
+				color: 'green',
+				title: 'DN',
+				priceFormat: {
+				  type: 'percent',
+				},
+				scaleMargins: {
+				  top: 0.8,
+				  bottom: 0,
+				},
+			  
+			  });
+			 // console.log(bolldata3.up)
+			
+
 			newSeries.setData(data);
+			
+			bollupSeries.setData(bollupdata);
+			bollmbSeries.setData(bollmbdata);
+			bolldnSeries.setData(bolldndata);
+			
 
 
 		 // 添加滚动事件监听器，将一个图表的滚动应用到另一个图表
@@ -77,7 +130,7 @@ export const ChartComponent = props => {
 				volumchart.remove();
 			};
 		},
-		[data, data2, backgroundColor, lineColor, textColor, areaTopColor, areaBottomColor]
+		[data, data2,bollupdata,bollmbdata,bolldndata, backgroundColor, lineColor, textColor, areaTopColor, areaBottomColor]
 	);
 
 	return (
@@ -110,6 +163,12 @@ export default function Charts(props) {
 	])
 	const [newdata2, setnewdata2] = useState([
 	])
+	const [bollupdata, setbollupdata] = useState([
+	])
+	const [bollmbdata, setbollmbdata] = useState([
+	])
+	const [bolldndata, setbolldndata] = useState([
+	])
 	const [stoploding, setstoploding] = useState(false)
 	useEffect(()=>{
  		//if(stoploding== true){
@@ -131,12 +190,17 @@ export default function Charts(props) {
 				const data_json = data.data.data.kline.reverse()
 				let klinedata = {
 					kline: data_json,
-					value: getklinevelue(data_json)
+					value: getklinevelue(data_json),
+					testboll:threeboll(data_json)
 				}
+				//console.log(klinedata.testboll)
 
 				//console.log(JSON.stringify(klinedata))
 				setnewdata(klinedata.kline)
 				setnewdata2(klinedata.value)
+				setbollupdata(klinedata.testboll.up)
+				setbollmbdata(klinedata.testboll.md)
+				setbolldndata(klinedata.testboll.dn)
 				setstoploding(true)
 				// console.log(newdata)
 				// 逻辑处理
@@ -150,7 +214,7 @@ export default function Charts(props) {
 		<><div className='grid grid-cols-0 gap-3 place-content-center text-9xl'>{geturldata.coin}</div>
 			<div className=''>
 				<div className=''>
-					<ChartComponent {...props} data={newdata} data2={newdata2}></ChartComponent>
+					<ChartComponent {...props} data={newdata} data2={newdata2} bollupdata={bollupdata} bollmbdata={bollmbdata} bolldndata={bolldndata}></ChartComponent>
 				</div>
 				<Changeurl />
 			</div></>
