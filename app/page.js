@@ -12,7 +12,7 @@ export default function Home() {
   const [loading,setloading]=useState(true)
 
 const getcoinarr=async ()=>{
-  const coinnames=['BTC', 'ETH', 'matic665', 'apt530', 'tron', 'solana', 'UNI226','XLM','arb248','ape613']
+  const coinnames=['BTC', 'BCH','ETH', 'matic665', 'apt530', 'tron', 'solana', 'UNI226','XLM','arb248','ape613']
   const coinPromises=coinnames.map((coinname)=>{
    return getwebData({url:gettoday(coinname)})
     .then(data => {
